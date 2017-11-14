@@ -6,5 +6,22 @@
     "request": "^2.83.0",
     "spotify": "^0.3.0",
     "twitter": "^1.7.1"
-  }
+  },
+  "description": "liri app",
+  "version": "1.0.0",
+  "main": "keys.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4n4st4s14/liri-node-app.git"
+  },
+  "author": "ani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4n4st4s14/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/4n4st4s14/liri-node-app#readme"
 }

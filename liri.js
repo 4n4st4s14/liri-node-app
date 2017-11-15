@@ -3,7 +3,7 @@ var keyList = require("./keys.js");
 
 var fs = require("fs");
 var twitter = require("twitter");
-var spotify = require("spotify");
+var spotify = require("node-spotify-api");
 var request = require("request");
 
 //node liri.js my-tweets
@@ -27,7 +27,11 @@ var myTweets = function() {
 });
 }; //end twitter function
 
+//second call for artist names in spotify- not sure why it requires a double //call
 
+var artistNames = function(artist){
+  return artist.name;
+};
 //spotify function
 
 var getSpotify = function(songName) {
@@ -37,12 +41,31 @@ var getSpotify = function(songName) {
   };
 
   // npm spotify search
-  spotify.search({ type: 'track', query: songName }, function(err, data) {
+
+  var Spotify = new spotify({
+  id: 'b5968027b0264234814374d082709302',
+  secret: 'd7320557a6174fc6acef3eda40f5db2a'
+});
+  Spotify.search({ type: 'track', query: songName }, function(err, data) {
   if (err) {
     return console.log('Error occurred: ' + err);
   }
 
-console.log(data);
+  var songs= data.tracks.items;
+  var dataArr = [];
+
+//loop through results and push to array
+
+for (var i=0; i <songs.length; i++){
+  dataArr.push({
+    'Artist(s): ' : songs[i].artists.map(artistNames),
+    'Song Name: ' : songs[i].name,
+    'Link: ': songs[i].preview_url,
+    'Album: ' : songs[i].album.name,
+
+  })
+}
+console.log(dataArr);
 });
 }// end of spotify function
 

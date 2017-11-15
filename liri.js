@@ -9,14 +9,33 @@ var request = require("request");
 //node liri.js my-tweets
 //show last 20 tweets and when they were created in terminal
 var myTweets = function() {
-  var client = new twitter(keyList.twitterKeys);
+//var client = new twitter(keyList.twitterKeys);
 
-  var params= {screen_name: "nodejs", count: 10};
+  var client = new twitter ({
+    consumer_key: 'hW4BwzbPbwMzy7edl2vGyqADk',
+    consumer_secret: 'nJjSiBexKjVfXk0NJQcxS3XwEzaMyXlJmOnWLyq7v8rzZP4jp2',
+    access_token_key: '930249865338195968-vHB7Q0TriKuB5SHRH9F4oMd3zBbIHBG',
+    access_token_secret: 'rG6UNaiKOK0lMMNAj20BSFgvcpo42oIcuJgd7NOsByzUX',
+  });
+
+
+  var params= {screen_name: "Mildred_Bonk_", count: 20};
 
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
 
-        console.log(tweets);
+       var data = [];
+       //var jsonData = JSON.parse(tweets);
+      for(var i=0; i< tweets.length; i++){
+        data.push({
+          'Tweet: ' : tweets[i].text,
+          'Created At: ' : tweets[i].created_at
+
+        });
+      }
+        //console.log(tweets)
+        logData(data);
+        console.log(data);
   }
 });
 }; //end twitter function
@@ -60,6 +79,7 @@ for (var i=0; i <songs.length; i++){
   })
 }
 console.log(dataArr);
+logData(dataArr);
 });
 }// end of spotify function
 
@@ -86,6 +106,7 @@ var getMovie = function(movieName) {
         'Actors: ' : jsonData.Actors,
       })
       console.log(data);
+      logData(data);
     }
   });
 }//end movie function
@@ -96,6 +117,7 @@ var doWhatItSays = function(){
   fs.readFile("random.txt", 'UTF-8', function(error, data){
 
     console.log(data);
+    logData(data);
     var dataSplit = data.split(',');
 
     cmd(dataSplit[0], dataSplit[1]);
@@ -126,7 +148,13 @@ var cmd = function(userCmd, userData){
   }
 }// end switch
 
-
+//function to append data to text file log.txt
+var logData = function(data){
+  fs.appendFile('log.txt', JSON.stringify(data), function(err){
+    if (err) throw err;
+    console.log('Logged!')
+  })
+}
 //variable assigned to function that that takes 2 arguments as paramemters and
 //sends them to the cmd function
 

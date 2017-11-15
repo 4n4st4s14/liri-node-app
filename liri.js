@@ -15,19 +15,13 @@ var myTweets = function() {
 
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
-        var data = []; //empty array to hold data
-        for (var i = 0; i < tweets.length; i++) {
-          data.push({
-              'created at: ' : tweets[i].created_at,
-              'Tweets: ' : tweets[i].text,
-          });
-        }
-        console.log(data);
+
+        console.log(tweets);
   }
 });
 }; //end twitter function
 
-//second call for artist names in spotify- not sure why it requires a double //call
+//second call for artist names in spotify- required!
 
 var artistNames = function(artist){
   return artist.name;
@@ -96,22 +90,17 @@ var getMovie = function(movieName) {
   });
 }//end movie function
 
-
-
-
-  //get?
-
-
-
-//node liri.js spotify-this-song '<song name>'
-//show artist, song name, preview link of song, album
-
-//if no song, default to "the Sign" by ace of base
-
-//movie-this
-
 //do-what-it-says
 
+var doWhatItSays = function(){
+  fs.readFile("random.txt", 'UTF-8', function(error, data){
+
+    console.log(data);
+    var dataSplit = data.split(',');
+
+    cmd(dataSplit[0], dataSplit[1]);
+  });
+}// end do what it says
 //switch statement for user input
 
 var cmd = function(userCmd, userData){
@@ -135,7 +124,8 @@ var cmd = function(userCmd, userData){
     default:
     console.log("Liri doesn\'t know that :(")
   }
-}
+}// end switch
+
 
 //variable assigned to function that that takes 2 arguments as paramemters and
 //sends them to the cmd function

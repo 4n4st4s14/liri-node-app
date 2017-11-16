@@ -1,5 +1,6 @@
 var keyList = require("./keys.js");
-
+// console.log(typeof(keyList));
+// console.log("sup",keyList.twitterKeys)
 
 var fs = require("fs");
 var twitter = require("twitter");
@@ -9,15 +10,7 @@ var request = require("request");
 //node liri.js my-tweets
 //show last 20 tweets and when they were created in terminal
 var myTweets = function() {
-//var client = new twitter(keyList.twitterKeys);
-
-  var client = new twitter ({
-    consumer_key: 'hW4BwzbPbwMzy7edl2vGyqADk',
-    consumer_secret: 'nJjSiBexKjVfXk0NJQcxS3XwEzaMyXlJmOnWLyq7v8rzZP4jp2',
-    access_token_key: '930249865338195968-vHB7Q0TriKuB5SHRH9F4oMd3zBbIHBG',
-    access_token_secret: 'rG6UNaiKOK0lMMNAj20BSFgvcpo42oIcuJgd7NOsByzUX',
-  });
-
+var client = new twitter(keyList);
 
   var params= {screen_name: "Mildred_Bonk_", count: 20};
 
@@ -59,6 +52,8 @@ var getSpotify = function(songName) {
   id: 'b5968027b0264234814374d082709302',
   secret: 'd7320557a6174fc6acef3eda40f5db2a'
 });
+
+
   Spotify.search({ type: 'track', query: songName }, function(err, data) {
   if (err) {
     return console.log('Error occurred: ' + err);

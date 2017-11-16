@@ -1,5 +1,11 @@
 # liri-node-app
 
+## Install these npm packages
+
+* npm install twitter
+* npm install spotify
+* npm install request
+
 ## Commands:
 
 * To search for a song on Spotify, type into terminal: node liri.js spotify-this-song songName
